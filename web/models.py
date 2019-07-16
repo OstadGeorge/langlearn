@@ -9,8 +9,7 @@ class Person(models.Model):
     user_name = models.CharField(max_length=300,null=False)
     user_password = models.CharField(max_length=50,null=False)
     email = models.EmailField(null=True)
-    from_language = models.CharField(max_length=20)
-    to_language = models.CharField(max_length=20)
+    language = models.CharField(null=True, max_length=20)
     register_date = models.DateField(auto_now=True)
 
     def __str__(self):
