@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponseRedirect
 # from django.http import JsonResponse
 # from json import JSONEncoder
 from django.views.decorators.csrf import csrf_exempt
@@ -44,14 +44,21 @@ def signup(req):
         if not re.match('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email):
             flag = False
             dic['email'] = 'Email is not valid'
+        if Person.objects.filter(user_name=username).exists():
+            flag = False
+            dic['unameTekrari'] = 'Username is already exists'
         # end validation
-        dic['username'] = username
-        dic['password'] = password
+        if flag == True:
+            dic['ok'] = "Signed up successfully"
         if flag == False:
             return render(req, 'signup.html', context=dic)
         else:
             Person.objects.create(user_name=username, user_password=signing.dumps(password), email=signing.dumps(email),language=lang)
-            return render(req, 'signin.html', context=dic)
-    return render(req, 'signup.html', context={})
-    
-    
+            return render(req, 'signup.html', context=dic)
+    else:
+        return render(req, 'signup.html', context={})
+        # return HttpResponseRedirect("/admin/")
+        
+@csrf_exempt
+def signin(req):
+    return render(req, 'signin.html', context={})

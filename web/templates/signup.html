@@ -34,14 +34,30 @@
             <img src="{% static 'photo/Icon3.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
             Lang Learn
         </a>
-        <a class="nav-link navbar-text" style="color: #fff;" href="#">Signin</a>
+        <a class="nav-link navbar-text" style="color: #fff;" href="{% url 'signin' %}">Signin</a>
     </nav>
     <div class="jumbotron jumbotron-fluid">
         <div class="container font-fira">
             <h1>Signup</h1>
+            {% if ok %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ ok }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
             {% if username %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ username }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+            {% if unameTekrari %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ unameTekrari }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
